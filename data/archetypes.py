@@ -42,3 +42,4 @@ explorer_pirates = ['buccaneer', 'cannoneer', 'corsair']
 
 
 explorers = Archetype(explorer_warriors, explorer_magicians, explorer_archers, explorer_thieves, explorer_thieves)
+
