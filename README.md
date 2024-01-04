@@ -2,13 +2,13 @@
 
 ## Getting Started
 
-1. Clone the repository
+1. Clone the repository:
 
    ```
    git clone https://github.com/quyencodes/orchid-bot.git
    ```
 
-2. Ensure that you have Python (at least 3.11) installed on your computer. Please downgrade if needed or build the virtual enviornment in Python 3.11 to protect against compatability issues.
+2. Ensure that you have Python (at least 3.11) installed on your computer. Please downgrade if needed or build the virtual enviornment in Python 3.11 to protect against compatability issues:
 
    ```
    python --version
@@ -38,8 +38,30 @@
    python3 main.py
    ```
 
-7. Run main.py with nodemon:
+## Hot Reload
+
+In order to run our application with hot reload, please ensure node and npm are installed on your machine. We strongly recommend installing npm as your Node.js manager. 
+
+1. Install npm:
 
    ```
-   nodemon --exec python3 main.py
+   npm install -g npm
+   ```
+
+2. Install node:
+
+   ```
+   npm install node
+   ```
+
+3. Install necessary packages:
+
+   ```
+   npm install
+   ```
+
+3. Run application using hot reload:
+
+   ```
+   npm run start
    ```
