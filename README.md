@@ -26,7 +26,7 @@
    pip install -r requirements.txt
    ```
 
-5. Create your secret.py (use secret.example.py as an example):
+5. Copy secret.example.py and rename to secret.py:
 
    ```
    API_TOKEN = "YOUR TOKEN HERE"
