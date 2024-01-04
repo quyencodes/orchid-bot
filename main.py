@@ -32,13 +32,8 @@ async def on_ready():
   print("-----------------------------")
 
 """
-Called when user types in !hello in the discord text-channels
+@return - Returns the Discord timestamp for Ursus in UTC
 """
-
-
-@client.command()
-async def hello(ctx):
-  await ctx.send(default.message)
 
 
 @client.command()
@@ -75,11 +70,11 @@ async def ursus(ctx):
   interval1 = f"{timestamp.discord_timestamp(unix1, 'short_time')} - {timestamp.discord_timestamp(unix2, 'short_time')}"
   interval2 = f"{timestamp.discord_timestamp(unix3, 'short_time')} - {timestamp.discord_timestamp(unix4, 'short_time')}"
 
-  embed = discord.Embed(title=title, colour=colour.light_blue)
+  embed = discord.Embed(title=title, colour=discord.Color.green())
   embed.add_field(name='Description', value='Ursus is a unique boss that allows up to 18 players to join the fight. In MapleStory Reboot, Ursus is popular because of the daily mesos player(s) can receive. At special times of the day, the amount of mesos you earn from Ursus is doubled.', inline=False)
-  embed.add_field(name='Ursus Golden Time Slot 1',
+  embed.add_field(name='Ursus Golden Time Slot 1 (your timezone)',
                   value=interval1, inline=True)
-  embed.add_field(name='Ursus Golden Time Slot 2',
+  embed.add_field(name='Ursus Golden Time Slot 2 (your timezone)',
                   value=interval2, inline=True)
   embed.set_image(url=images.ursus)
   embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
@@ -189,11 +184,11 @@ async def abyssal(ctx):
   title = 'Join the Abyssal Expedition (2023)'
   embed = discord.Embed(title=title, colour=colour.light_blue)
   embed.add_field(name='Abyssal Expedition Guide',
-                  value='Document guide for the Abyssal Expedition event. Created by MapleStory community member oSilent / ElysiumGMS \n[Link](https://docs.google.com/document/d/1X7L6hxmweLghxXa82BjLrzu-od8D9RQYrp9m6Ha1ano/preview)\n', inline=False)
+                  value='Document guide for the Abyssal Expedition event. \n[Link](https://docs.google.com/document/d/1X7L6hxmweLghxXa82BjLrzu-od8D9RQYrp9m6Ha1ano/preview)\n', inline=False)
   embed.add_field(name='Abyssal Expedition Daily Calculator',
-                  value='Spreadsheet daily reference for the Abyssal Expedition event. Created by MapleStory community member oSilent / ElysiumGMS \n[Link](https://docs.google.com/spreadsheets/d/1MwrYUe5xmbdIEZ9-3SOxjZ8GBzGu56o4/edit?usp=sharing&ouid=101090533765814226839&rtpof=true&sd=true)\n', inline=False)
+                  value='Spreadsheet daily reference for the Abyssal Expedition event. \n[Link](https://docs.google.com/spreadsheets/d/1MwrYUe5xmbdIEZ9-3SOxjZ8GBzGu56o4/edit?usp=sharing&ouid=101090533765814226839&rtpof=true&sd=true)\n', inline=False)
   embed.add_field(
-    name='', value='> For more information see the [MapleStory Official Patch Notes](https://maplestory.nexon.net/news/88519/join-the-abyssal-expedition)', inline=False)
+    name='', value='Created by MapleStory community member oSilent / ElysiumGMS\n> For more information see the [MapleStory Official Patch Notes](https://maplestory.nexon.net/news/88519/join-the-abyssal-expedition)', inline=False)
 
   embed.set_image(url=images.abyssal)
   embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
@@ -243,27 +238,249 @@ async def viproyal(ctx):
     url="https://preview.redd.it/b0a9bdk5cjc61.png?width=735&format=png&auto=webp&s=dd01dff4d596d5f862f4dbe199117f04c336062c")
   await ctx.send(embed=embed)
 
+"""
+@return - Full list of commands via Embed
+"""
+
 
 @client.command()
 async def commands(ctx):
-  embed = discord.Embed(colour=discord.Color.green())
-  embed.add_field(
-    name='', value='> For a full list of commands please visit our Official [Github Repo](https://github.com/quyencodes/orchid-bot).')
+  title = 'Orchid Bot Commands'
+  commands = {
+    '!ursus': 'When is Ursus 2x Time / Golden Time?',
+    '!dmt': 'When is the next Double Miracle Time?',
+    '!bossmule': 'How should I gear my boss mules?',
+    '!classes': 'How do I get access to my class\' discord?',
+    '!invite': 'Permanent invite link for MapleStory\'s Official Discord Server(s)',
+    '!creators': 'What MapleStory creators do you recommend?',
+    '!archetype': 'Which classes share Cash Shop inventories?',
+    '!abyssal': 'What is the Abyssal Expedition event?',
+    '!viproyal': 'Where can I find the VIP Royal Hair / Face coupon choices?',
+    '!scrapyard': 'What are the useful resources for Scrapyard weeklies?'
+  }
+  embed = discord.Embed(title=title, colour=discord.Color.green())
+
+  for command, explanation in commands.items():
+    embed.add_field(name='', value=f"`{command}` {explanation}", inline=False)
+
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
   await ctx.send(embed=embed)
 
 """
-@param - Takes in the UTC date and time of interest
-@return - Returns unix formatted version of time
+@return - Returns the resources needed for Scrapyard weeklies
 """
 
 
-def convert_to_unix_time(time_str):
-  # Parse the input string to a datetime object
-  dt_object = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S %z")
+@client.command()
+async def scrapyard(ctx):
+  data = {
+    'title': 'Scrapyard',
+    'description': 'lorem ipsum huynh asdadjw medlc dsuuem cdcdfasddsaj',
+    'field1': {
+      'name': 'Scrapyard Weekly Quest Guide',
+      'value': 'Visit the guide and scroll down to the Overall Recommendations section. Expand the Simplified drop-down menu and follow the instructions there:\n[Link](https://strategywiki.org/wiki/MapleStory/Towns/Scrapyard)'
+    },
+  }
 
-  # Convert to Unix timestamp
-  unix_timestamp = int(dt_object.timestamp())
-  return unix_timestamp
+  embed = discord.Embed(
+    title=data['title'], description=data['description'], colour=discord.Color.green())
 
+  for key in data:
+    if key in ['field1']:
+      embed.add_field(name=data[key]['name'], value=data[key]['value'])
+
+  await ctx.send(embed=embed)
+
+"""
+@return - Returns the prequest information for bosses in MapleStory
+"""
+
+
+@client.command()
+async def bossprequests(ctx):
+  data = {
+    'title': 'MapleStory Boss Prequests',
+    'description': 'Here is a list of resources to complete the prequest for each boss!',
+    'prequest_data': {
+      'Barlog': {
+        'link': None
+      },
+      'Zakum': {
+        'link': None
+      },
+      'Hilla': {
+        'link': None
+      },
+      'Ursus': {
+        'link': '[DigitalTQ](https://www.digitaltq.com/maplestory-ursus-guide)'
+      },
+      'Magnus': {
+        'link': '[DigitalCrowns](https://thedigitalcrowns.com/magnus-prequest-guide-updated-maplestory/)'
+      },
+      'OMNI-CLN': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=UDc1cuQC_Ac)'
+      },
+      'Papalatus': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=f9UdUnyJ4-o)'
+      },
+      'Root Abyss': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=5dWMN4NGaQQ)'
+      },
+      'Von Leon': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=2-f2tHoFypA)'
+      },
+      'Horntail': {
+        'link': '[MapleWiki](https://maplestory.fandom.com/wiki/Quests/41/(Horntail)_Certificate_of_the_Dragon_Squad)'
+      },
+      'Arkarium': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=wfGRei71ZsY)'
+      },
+      'Pink Bean': {
+        'link': '[Digital Crowns](https://thedigitalcrowns.com/pink-bean-prequest-guide-updated-maplestory/)'
+      },
+      'Cygnus': {
+        'link': '[DigitalTQ](https://www.digitaltq.com/maplestory-cygnus-prequest-guide)'
+      },
+      'Guardian Angel Slime': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=MjdYWrvw4iQ)'
+      },
+      'Gollux': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=S-HiKCTHh7k)'
+      },
+      'Ranmaru': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=lvF33nTRmeo)'
+      },
+      'Princess No': {
+        'link': '[YouTube Link](https://www.youtube.com/watch?v=zXKJYay-zSI&t=6s)'
+      },
+      'Akechi Mitsuhide': {
+        'link': '[DigitalTQ](https://www.digitaltq.com/maplestory-akechi-mitsuhide-boss-prequest-the-asura-crisis)'
+      },
+      'Lotus': {
+        'link': '1) Dimensional Mirror\n2) Ereve Conference Pavilion\n3) Interact with [Moco](https://maplestory.fandom.com/wiki/Moco)\n4) Black Heaven **(Complete All Acts)**'
+      },
+      'Damien': {
+        'link': '1) Dimensional Mirror\n2) Ereve Conference Pavilion\n3) Interact with [Moco](https://maplestory.fandom.com/wiki/Moco)\n4) Heroes of Maple **(Complete Act 4)**'
+      },
+    },
+  }
+
+  embed = discord.Embed(
+    title=data["title"], description=data["description"], colour=discord.Color.green())
+
+  for boss in data['prequest_data']:
+    current = data['prequest_data'][boss]
+
+    value = current['link'] if current['link'] is not None else 'No Prequests'
+
+    embed.add_field(name=boss, value=value, inline=True)
+
+  embed.add_field(name='Other', value="Bosses such as **Lucid**, **Will**, **Gloom**, **Verus Hilla**, **Black Mage**, **Chosen Seren**, **Kalos**, and **Kaling** are unlocked as you progress through the Arcane River and Grandis storyline", inline=False)
+  embed.add_field(
+    name='', value="> Last updated December 30, 2023", inline=False)
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
+  await ctx.send(embed=embed)
+
+
+@client.command()
+async def bucc(ctx):
+  title = 'Buccaneer Class Infographic 2023/2024'
+  embed = discord.Embed(title=title, color=discord.Color.green())
+  embed.set_image(url="https://cdn.discordapp.com/attachments/1175225470749507685/1175235598336929823/buccaneer_info.png?ex=65a1dd71&is=658f6871&hm=3ef2f5d952297787ccd2c54d0e068a02d38437ac38da9450630fc78a64d2d6d6&")
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
+  await ctx.send(embed=embed)
+
+"""
+@return - Returns the return
+"""
+
+
+@client.command()
+async def reset(ctx):
+
+  # daily reset timestamp
+  utc_reset = datetime.now(timezone.utc).replace(
+    hour=23, minute=59, second=59)
+
+  utc_reset_timestamp = timestamp.utc_unix_timestamp(
+    utc_reset.year, utc_reset.month, utc_reset.day, utc_reset.hour, utc_reset.minute, utc_reset.second)
+
+  # sunday reset timestamp
+  utc_monday = timestamp.get_day_of_week(
+    'sunday').replace(hour=0, minute=0, second=0)
+
+  utc_monday_timestamp = timestamp.utc_unix_timestamp(
+    utc_monday.year, utc_monday.month, utc_monday.day, utc_monday.hour, utc_monday.minute, utc_monday.second)
+
+  # wednesday reset timestamp
+  utc_wednesday = timestamp.get_day_of_week(
+    'wednesday').replace(hour=0, minute=0, second=0)
+
+  utc_wednesday_timestamp = timestamp.utc_unix_timestamp(
+    utc_wednesday.year, utc_wednesday.month, utc_wednesday.day, utc_wednesday.hour, utc_wednesday.minute, utc_wednesday.second)
+
+  data = {
+    "daily": {
+      'name': "Daily",
+      'value': f"> Reset is at {timestamp.discord_timestamp(utc_reset_timestamp, 'short_time')} ({timestamp.discord_timestamp(utc_reset_timestamp, 'relative')}).",
+      'inline': False
+    },
+    "weekly_bosses": {
+      'name': 'Weekly Bosses',
+      'value': f"> Reset is at {timestamp.discord_timestamp(utc_wednesday_timestamp, 'short_time')} ({timestamp.discord_timestamp(utc_wednesday_timestamp, 'relative')}).",
+      'inline': False
+    },
+    "weekly": {
+      'name': 'Weekly Story Quests',
+      'value': f"Scrapyard, Dark World Tree, and Arcane River weeklies reset\n> Reset is at {timestamp.discord_timestamp(utc_monday_timestamp, 'short_time')} ({timestamp.discord_timestamp(utc_monday_timestamp, 'relative')}).",
+      'inline': False
+    },
+  }
+
+  description = 'Timestamps are adjusted for your respective timezone'
+  embed = discord.Embed(description=description, colour=discord.Color.green())
+
+  for field in data:
+    embed.add_field(name=data[field]['name'], value=data[field]
+                    ['value'], inline=data[field]['inline'])
+
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
+  await ctx.send(embed=embed)
+
+"""
+
+"""
+
+
+@client.command()
+async def dragon(ctx):
+  data = {
+    'title': 'New Year: Legendary Blue Dragon Event',
+    'details': [
+      '- Hunt mobs for eggs (+/- 20 levels)',
+        '- Use 8 eggs for a set of pulls (summoning)',
+        '- 2 blue summons per __**event**__ **(MOST IMPORTANT PULLS)**',
+        '- 1 gold summon per **day**',
+        '- 3 red summon per **day**',
+        '**Getting all 16 blue eggs:**',
+        '  - 9 from hunting mobs (across event period)',
+        '  - 7 from checking in every day (7 days of the event)',
+        '**CHECK IN EVERY DAY FOR A BLUE EGG**',
+        '  - Missing even one day means you can only pull blue summon 1 time (instead of 2)'
+    ],
+  }
+  embed = discord.Embed(
+    title=data['title'], colour=discord.Color.green())
+
+  for bulletpoint in data['details']:
+    embed.add_field(name='', value=bulletpoint, inline=False)
+
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
+  await ctx.send(embed=embed)
 
 client.run(API_TOKEN)

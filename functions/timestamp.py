@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 """
 @param {string} unix - Unix timestamp
@@ -24,6 +24,7 @@ def discord_timestamp(unix, format=None):
   }
   return f"<t:{unix}:{formatting[format]}>"
 
+
 """
 Recreation of https://www.unixtimestamp.com/ in a python function
 @param {string} year - Number format for year (YYYY)
@@ -45,3 +46,34 @@ def utc_unix_timestamp(year, month, day, hour, minutes, seconds):
   timestamp = int(dt_utc.timestamp())
 
   return timestamp
+
+
+"""
+@param {string} - year
+@param {string} - month
+@param {string} - day
+@return {string} - this week's sunday datetime object
+"""
+
+
+def get_day_of_week(selectedDay):
+  dayMap = {
+    'monday': 0,
+    'tuesday': 1,
+    'wednesday': 2,
+    'thursday': 3,
+    'friday': 4,
+    'saturday': 5,
+    'sunday': 6
+  }
+
+  # Get the utc reset time
+  current_utc_time = datetime.now(timezone.utc)
+
+  # Get the difference between Sunday and the Current Day
+  days_until_y = (dayMap[selectedDay] - current_utc_time.weekday() + 1) % 7
+
+  # Find the Sunday datetime object
+  datetime_obj = current_utc_time + timedelta(days=days_until_y)
+
+  return datetime_obj
