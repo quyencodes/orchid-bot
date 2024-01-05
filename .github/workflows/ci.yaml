@@ -6,7 +6,7 @@ on:
 name: ci
 jobs:
   release:
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
