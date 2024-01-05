@@ -2,32 +2,29 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 name: ci
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
 
-      - name: Create virtual environment
-        run: python -m venv .venv
-
-      - name: Activate virtual environment and install dependencies
-        run: |
-          source .venv/bin/activate
-          pip install -r requirements.txt
+      - name: Install requirements and dependencies
+        run: pip install -r requirements.txt
 
       - name: Install Node.js and npm
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
@@ -40,3 +37,7 @@ jobs:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Post Steps
+        run: |
+          echo "This is a post step."
