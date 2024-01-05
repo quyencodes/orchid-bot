@@ -1,5 +1,7 @@
 # pip imports
 import discord
+import os
+from dotenv import load_dotenv
 from datetime import datetime, timezone, timedelta
 from discord.ext import commands  # ext = extensions
 
@@ -9,6 +11,8 @@ from embed import footer, colour, images
 from utils import disclaimer, default
 from functions import timestamp
 from data import miracletime
+
+load_dotenv()
 
 """
 Initialize our Discord bot
@@ -553,4 +557,6 @@ async def dragon(ctx):
 
   await ctx.send(embed=embed)
 
-client.run(DISCORD_TOKEN)
+api_token = os.environ.get('DISCORD_TOKEN') or os.getenv('DISCORD_TOKEN')
+
+client.run(api_token)

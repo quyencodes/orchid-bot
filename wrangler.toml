@@ -12,8 +12,3 @@ format = "service-worker"
 
 [build.upload.match]
 pattern = "main.py"
-
-# [secrets]
-# DISCORD_TOKEN
-# DISCORD_PUBLIC_KEY
-# DISCORD_APPLICATION_ID
