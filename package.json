@@ -1,18 +1,21 @@
 {
-  "dependencies": {
-    "node": "20.9.0",
-    "nodemon": "3.0.2"
-  },
   "name": "orchid-bot",
   "description": "Orchid Bot",
   "version": "1.0.0",
   "main": "main.py",
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon --exec python main.py",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "wrangler dev main.py",
+    "publish": "wrangler deploy"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "node": "20.9.0",
+    "nodemon": "3.0.2"
+  },
+  "devDependencies": {
+    "wrangler": "^3.22.3"
+  }
 }
