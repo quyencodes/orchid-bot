@@ -6,7 +6,6 @@ from datetime import datetime, timezone, timedelta
 from discord.ext import commands  # ext = extensions
 
 # local imports
-from secret import *
 from embed import footer, colour, images
 from utils import disclaimer, default
 from functions import timestamp
