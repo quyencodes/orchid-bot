@@ -28,7 +28,7 @@ Called when the client is done preparaing the data received from Discord
 
 @client.event
 async def on_ready():
-  print(f"{client.user.name} Bot is currently running on localhost.")
+  print(f"{client.user.name} Bot is currently running.")
   print("-----------------------------")
 
 """
@@ -94,7 +94,7 @@ async def classes(ctx):
   description = 'Here is a Reddit thread containing links to every class Discord server. Please be aware that these are run by members of the community and are not tied to the Official MapleStory team and MapleStory Discord server'
 
   embed = discord.Embed(
-    title=title, description=description, colour=colour.light_blue)
+    title=title, description=description, colour=discord.Color.green())
   embed.add_field(name="Reddit Thread",
                   value="https://www.reddit.com/r/Maplestory/comments/13jji1j/master_list_of_class_discord_links_for_savior_and/")
   embed.set_image(url=images.classes)
@@ -106,7 +106,7 @@ async def classes(ctx):
 async def bossmule(ctx):
   title = 'Boss Mule'
   description = 'Here is a YouTube video on how to equip and prepare a boss mule for MapleStory Reboot. The video was created in 2022 but the Orchid Bot team still believes a lot of the information present is valid.'
-  embed = discord.Embed(title=title, colour=colour.light_blue)
+  embed = discord.Embed(title=title, colour=discord.Color.green())
   embed.add_field(name="Description", value=description, inline=False)
   embed.add_field(name="YouTube Video",
                   value="https://www.youtube.com/watch?v=qh_h1FaLZpc", inline=False)
@@ -125,7 +125,7 @@ async def sunnysunday(ctx):
 @client.command()
 async def invite(ctx):
   title = 'Recommended MapleStory Discord Servers'
-  embed = discord.Embed(title=title, colour=colour.light_blue)
+  embed = discord.Embed(title=title, colour=discord.Color.green())
   embed.add_field(name="MapleStory Official Discord Server",
                   value="Join the Official MapleStory Discord Server for communities with Reboot and non-Reboot, official announcements, NX updates and more!\n\nhttps://discord.gg/maplestory", inline=False)
 
@@ -139,11 +139,11 @@ async def invite(ctx):
 @client.command()
 async def creators(ctx):
   title = 'Recommended MapleStory Creators'
-  main_embed = discord.Embed(title=title, colour=colour.light_blue)
+  main_embed = discord.Embed(title=title, colour=discord.Color.green())
   main_embed.add_field(
     name="Disclaimer", value=disclaimer.INFO_DISCLAIMER, inline=False)
 
-  embed_creator1 = discord.Embed(colour=colour.light_blue)
+  embed_creator1 = discord.Embed(colour=discord.Color.green())
   embed_creator1.set_author(
     name="x3TheAran59", url="https://www.youtube.com/@x3TheAran59/videos")
   embed_creator1.add_field(name="About", value="Steve creates MapleStory content featuring the latest KMS (Korean MapleStory) and KMST (Korean MapleStory Testpia - Test Server) updates and gameplay. *GMS generally receives KMS updates 6 months subsequently.")
@@ -182,7 +182,7 @@ async def archetype(ctx):
 @client.command()
 async def abyssal(ctx):
   title = 'Join the Abyssal Expedition (2023)'
-  embed = discord.Embed(title=title, colour=colour.light_blue)
+  embed = discord.Embed(title=title, colour=discord.Color.green())
   embed.add_field(name='Abyssal Expedition Guide',
                   value='Document guide for the Abyssal Expedition event. \n[Link](https://docs.google.com/document/d/1X7L6hxmweLghxXa82BjLrzu-od8D9RQYrp9m6Ha1ano/preview)\n', inline=False)
   embed.add_field(name='Abyssal Expedition Daily Calculator',
@@ -239,30 +239,35 @@ async def viproyal(ctx):
   await ctx.send(embed=embed)
 
 """
+@param {ctx} - Short for context. Used by discord.ext.commands and includes information like who executed the command, where it was executed and so on.
 @return - Full list of commands via Embed
 """
-
-
 @client.command()
 async def commands(ctx):
-  title = 'Orchid Bot Commands'
+  title = 'Frequently Used Commands',
+  description = 'Here is a list of most common commands most people run with our bot!'
   commands = {
+    '!utc': 'What time is it right now in UTC?',
+    '!bossprequests': 'What are the prequests I have to do for the bosses?',
     '!ursus': 'When is Ursus 2x Time / Golden Time?',
     '!dmt': 'When is the next Double Miracle Time?',
-    '!bossmule': 'How should I gear my boss mules?',
     '!classes': 'How do I get access to my class\' discord?',
-    '!invite': 'Permanent invite link for MapleStory\'s Official Discord Server(s)',
-    '!creators': 'What MapleStory creators do you recommend?',
     '!archetype': 'Which classes share Cash Shop inventories?',
-    '!abyssal': 'What is the Abyssal Expedition event?',
-    '!viproyal': 'Where can I find the VIP Royal Hair / Face coupon choices?',
-    '!scrapyard': 'What are the useful resources for Scrapyard weeklies?'
   }
-  embed = discord.Embed(title=title, colour=discord.Color.green())
+  master_list = {
+    '!viproyal': 'Where can I find the VIP Royal Hair / Face coupon choices?',
+    '!scrapyard': 'What are the useful resources for Scrapyard weeklies?',
+    '!abyssal': 'What is the Abyssal Expedition event?',
+    '!creators': 'What MapleStory creators do you recommend?',
+    '!invite': 'Permanent invite link for MapleStory\'s Official Discord Server(s)',
+    '!bossmule': 'How should I gear my boss mules?',
+  }
+  embed = discord.Embed(title=title, description=description, colour=discord.Color.green())
 
   for command, explanation in commands.items():
     embed.add_field(name='', value=f"`{command}` {explanation}", inline=False)
 
+  embed.add_field(name='', value='> For a full list of our commands, please see our website [here](https://github.com/quyencodes/orchid-bot)')
   embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
 
   await ctx.send(embed=embed)
@@ -289,6 +294,8 @@ async def scrapyard(ctx):
   for key in data:
     if key in ['field1']:
       embed.add_field(name=data[key]['name'], value=data[key]['value'])
+
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
 
   await ctx.send(embed=embed)
 
@@ -457,6 +464,69 @@ async def reset(ctx):
 
 
 @client.command()
+async def utc(ctx):
+  utc_now = datetime.now(timezone.utc)
+
+  year = int(utc_now.year)
+  month = int(utc_now.month)
+  day = int(utc_now.day)
+  hour = int(utc_now.hour)
+  minute = int(utc_now.minute)
+  second = int(utc_now.second)
+
+  dt = datetime(year, month, day, hour, minute, second)
+
+  embed = discord.Embed(
+    title='', description=f"> The current time is: {timestamp.discord_timestamp(int(dt.timestamp()))} +UTC", colour=discord.Color.green())
+
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
+  await ctx.send(embed=embed)
+
+
+@client.command()
+async def linkskills(ctx):
+  data = {
+    'title': 'Recommended Link Skills',
+    'description': 'For best results please look at your Class\' discord for recommended link skills.',
+    'training': [
+      'Mercedes', 'Evan', 'Ark', 'Illium', 'Kain', 'Lara', 'Phantom', 'Kanna', 'Hayato', 'Kinesis', 'Demon Avenger'
+    ],
+    'bossing': [
+      'Fury Unleashed', 'Phantom Instinct', 'Light Wash', 'Wild Rage', 'Judgment', 'Unfair Advantage', 'Spirit of Freedom', 'Solus', 'Terms and Conditions', 'Emperical Knowledge', 'Thief\'s Cunning', 'Focus Spirit'
+    ]
+  }
+  embed = discord.Embed(title=data.title)
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
+
+@client.command()
+async def specialchars(ctx):
+  data = {
+    'title': 'Valid Special Characters in Maplestory',
+    'description': 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+    'vowels': {
+      'a': ['à', 'á', 'â', 'ã', 'ä', 'å'],
+      'e': ['é', 'ê', 'ë'],
+      'i': ['ì', 'í', 'î', 'ï'],
+      'o': ['ó', 'ô', 'õ', 'ö', 'ò', 'ø'],
+      'u': ['ù', 'ú', 'û', 'ü'],
+    }
+  }
+
+  embed = discord.Embed(
+    title=data['title'], description=data['description'], colour=discord.Color.green())
+
+  for vowel in data['vowels']:
+    embed.add_field(
+      name='', value=f"**{vowel}**: {' '.join(data['vowels'][vowel])}", inline=False)
+
+  embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
+
+  await ctx.send(embed=embed)
+
+
+@client.command()
 async def dragon(ctx):
   data = {
     'title': 'New Year: Legendary Blue Dragon Event',
@@ -483,4 +553,4 @@ async def dragon(ctx):
 
   await ctx.send(embed=embed)
 
-client.run(API_TOKEN)
+client.run(DISCORD_TOKEN)
