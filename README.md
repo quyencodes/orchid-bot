@@ -26,10 +26,10 @@
    pip install -r requirements.txt
    ```
 
-5. Copy secret.example.py and rename to secret.py:
+5. Copy example.env and rename to .env:
 
    ```
-   API_TOKEN = "YOUR TOKEN HERE"
+   DISCORD_TOKEN = 'YOUR DISCORD TOKEN HERE'
    ```
 
 6. Run main.py:
@@ -40,7 +40,7 @@
 
 ## Hot Reload
 
-In order to run our application with hot reload, please ensure node and npm are installed on your machine. We strongly recommend installing npm as your Node.js manager. 
+In order to run our application with hot reload, please ensure node and npm are installed on your machine. We strongly recommend installing npm as your Node.js manager.
 
 1. Install npm:
 
@@ -60,7 +60,7 @@ In order to run our application with hot reload, please ensure node and npm are 
    npm install
    ```
 
-3. Run application using hot reload:
+4. Run application using hot reload:
 
    ```
    npm run start
