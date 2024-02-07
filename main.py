@@ -23,7 +23,7 @@ client = commands.Bot(command_prefix='!', intents=intents)
 
 # States of certain commands
 ursus_state = True
-dmt_state = True
+dmt_state = False
 """
 Called when the client is done preparaing the data received from Discord
 """
