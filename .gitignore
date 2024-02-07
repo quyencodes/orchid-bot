@@ -1,5 +1,6 @@
 # Ignore .github CI/CD pipeline
 .github
+wrangler.toml
 
 # Node.js
 node_modules/
