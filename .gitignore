@@ -1,6 +1,5 @@
-# Ignore .github CI/CD pipeline
-.github
-wrangler.toml
+# Ignore archived files
+archive/
 
 # Node.js
 node_modules/
