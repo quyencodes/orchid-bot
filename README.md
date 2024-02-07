@@ -60,7 +60,7 @@ In order to run our application with hot reload, please ensure node and npm are 
    npm install
    ```
 
-3. Run application using hot reload:
+3. Run application with hot reload:
 
    ```
    npm run start
