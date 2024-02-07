@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 from discord.ext import commands  # ext = extensions
 
 # local imports
-from embed import footer, colour, images
+from embed import footer, images
 from utils import disclaimer, default
 from functions import timestamp
 from data import miracletime
@@ -23,7 +23,7 @@ client = commands.Bot(command_prefix='!', intents=intents)
 
 # States of certain commands
 ursus_state = True
-dmt_state = True
+dmt_state = False
 """
 Called when the client is done preparaing the data received from Discord
 """
@@ -31,7 +31,7 @@ Called when the client is done preparaing the data received from Discord
 
 @client.event
 async def on_ready():
-  print(f"{client.user.name} Bot is currently running.")
+  print(f'{client.user.name} Bot has connected to Discord!')
   print("-----------------------------")
 
 """
@@ -502,6 +502,9 @@ async def linkskills(ctx):
   embed = discord.Embed(title=data.title)
   embed.set_footer(text=footer.embed_footer, icon_url=footer.embed_image_url)
 
+@client.command()
+async def andrew(ctx):
+  await ctx.send("ãndréw")
 
 @client.command()
 async def specialchars(ctx):
@@ -556,6 +559,10 @@ async def dragon(ctx):
 
   await ctx.send(embed=embed)
 
+# Get the token from GitHub Actions or from .env
 api_token = os.environ.get('DISCORD_TOKEN') or os.getenv('DISCORD_TOKEN')
+
+if api_token is None:
+  raise ValueError('We have an error retrieving the API TOKEN from the enviornment variables.')
 
 client.run(api_token)
