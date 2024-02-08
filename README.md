@@ -93,20 +93,20 @@ Please refer to the steps below to deploy your discord bot (<a href="https://dev
 ### Connect to your EC2 instance
 
 1. Make sure your .pem file is saved within the same directory as your application
-   Project/
-
-- orchid-bot
-  - main.py
-  - ...
-- orchid-key.pem
-
-2. Navigate to the directory where your .pem file is, ensure your key is not publicly viewable
+    ```
+    Project/
+      ── orchid-bot/
+         ── main.py
+         ── ...
+      ── orchid-key.pem
+    ```
+3. Navigate to the directory where your .pem file is, ensure your key is not publicly viewable
 
    ```
    chmod 400 "your-key.pem"
    ```
 
-3. Connect to your instance using its Public DNS:
+4. Connect to your instance using its Public DNS:
    ```
    ssh -i "your-key.pem" ubuntu@ec2-3-91-230-159.compute-1.amazonaws.com
    ```
